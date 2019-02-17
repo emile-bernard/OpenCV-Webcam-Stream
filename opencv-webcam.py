@@ -1,34 +1,29 @@
 import cv2
 import sys
 
-video_capture = cv2.VideoCapture(0)
+videoCapture = cv2.VideoCapture(0)
+pretrainedFaceClassifier = cv2.CascadeClassifier("./assets/model/haarcascade_frontalface_alt.xml")
 
-faceCascade = cv2.CascadeClassifier("./assets/model/haarcascade_frontalface_alt.xml")
-
-def drawRectagle(frame):
-    for (x, y, w, h) in face:
+def drawRectagle(frame, objects):
+    for (x, y, w, h) in objects:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 5)
 
 def releaseCapture():
-    video_capture.release()
+    videoCapture.release()
     cv2.destroyAllWindows()
 
 while True:
-    ret, frame = video_capture.read()
-
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-    face = faceCascade.detectMultiScale(
-        gray,
+    returnValue, videoFrame = videoCapture.read()
+    colorSpace = cv2.cvtColor(videoFrame, cv2.COLOR_BGR2GRAY)
+    detectedObjects = pretrainedFaceClassifier.detectMultiScale(
+        colorSpace,
         scaleFactor=1.1,
-        minNeighbors=5,
+        minNeighbors=3,
         minSize=(20, 20),
         flags=cv2.CASCADE_SCALE_IMAGE
     )
-
-    drawRectagle(frame)
-
-    cv2.imshow('Video', frame)
+    drawRectagle(videoFrame, detectedObjects)
+    cv2.imshow('OpenCV face recogniton applied to a webcam video stream', videoFrame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
