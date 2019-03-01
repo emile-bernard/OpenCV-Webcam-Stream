@@ -29,7 +29,7 @@ class App(tk.Frame):
         assetFiles = []
         for root, dirs, files in os.walk(path):
             for filename in files:
-                assetFileName = filename
+                assetFileName = os.path.splitext(filename)[0]
                 assetFilePath = os.path.join(root, filename)
                 assetFile = (assetFileName, assetFilePath)
                 assetFiles.append(assetFile)
