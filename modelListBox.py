@@ -2,8 +2,8 @@ import tkinter as tk
 from model import Model
 
 class ModelListBox:
-    LISTBOX_WIDTH = 40
-    LISTBOX_HEIGHT = 40
+    LISTBOX_WIDTH = 30
+    LISTBOX_HEIGHT = 30
 
     def __init__(self, parent, model, modelFiles):
         self.modelListBox = tk.Listbox(parent)

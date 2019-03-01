@@ -1,3 +1,4 @@
+import re
 import os
 import cv2
 import sys
@@ -29,7 +30,7 @@ class App(tk.Frame):
         assetFiles = []
         for root, dirs, files in os.walk(path):
             for filename in files:
-                assetFileName = os.path.splitext(filename)[0]
+                assetFileName = re.search(r'haarcascade_(.*?).xml', filename).group(1)
                 assetFilePath = os.path.join(root, filename)
                 assetFile = (assetFileName, assetFilePath)
                 assetFiles.append(assetFile)
