@@ -25,7 +25,7 @@ class ModelListBox:
     def modelListBoxSelectionChanged(self, *args):
         isSelectedPath, selectedModelPath = self.getSelectedModelPath()
         if(isSelectedPath):
-            self.model.setModelClassifierPath(selectedModelPath)
+            self.model.setModelClassifierPath(self.getSelectedModelName(), selectedModelPath)
 
     def getSelectedModelPath(self):
         try:

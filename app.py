@@ -19,7 +19,7 @@ class App(tk.Frame):
         self.parent = parent
 
         self.modelFiles = self.getFiles("./assets/models")
-        self.model = Model(self.modelFiles[0][1])
+        self.model = Model(self.modelFiles[0][0], self.modelFiles[0][1])
         self.videoCapture = VideoCapture(0)
 
         self.modelListBox = ModelListBox(self.parent, self.model, self.modelFiles)

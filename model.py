@@ -7,10 +7,11 @@ class Model:
     OBJECT_MIN_HORIZONTAL_SIZE = 20
     OBJECT_MIN_VERTICAL_SIZE = 20
 
-    def __init__(self, classifierPath):
+    def __init__(self, modelFileName, classifierPath):
         self.classifier = cv2.CascadeClassifier(classifierPath)
         self.imageScaleFactor = 1.1
         self.canditateRectangleMinNeighbors = 3
+        self.modelFileName = modelFileName
 
     def detectObjects(self, frame):
         colorSpace = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -27,8 +28,9 @@ class Model:
         for (x, y, w, h) in objects:
             rectangle = Rectangle(frame, (x, y), (x+w, y+h))
             rectangle.draw()
-            text = Text(frame, "Object", (x, y))
+            text = Text(frame, self.modelFileName, (x, y))
             text.draw()
 
-    def setModelClassifierPath(self, modelClassifierPath):
+    def setModelClassifierPath(self, modelFileName, modelClassifierPath):
         self.classifier = cv2.CascadeClassifier(modelClassifierPath)
+        self.modelFileName = modelFileName
